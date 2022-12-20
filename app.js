@@ -1,5 +1,5 @@
 // Api Id
-// 0eaf20552f14111d01100d5a751e83e0-us21
+// 457d93da3a4fd2abab2230048ac5973a-us21
 
 // list Id
 // 3d7073b998
@@ -11,16 +11,18 @@ const bodyParser = require("body-parser");
 const mailchimp = require('@mailchimp/mailchimp_marketing');
 const async = require('async');
 const https  = require("https");
-const { log } = require("console");
+
+require('dotenv').config();
+// const { log } = require("console");
 const port = process.env.PORT || 3000;
 
 const app = express();
 
 app.use(bodyParser.urlencoded({extended : true}));
 app.use(express.static("public"));
-
+// console.log(process.env);
 mailchimp.setConfig({
-    apiKey : "0eaf20552f14111d01100d5a751e83e0-us21",
+    apiKey : process.env.API_KEY,
     server : "us21",
 })
 
@@ -48,7 +50,7 @@ app.post("/", function(req, res){
             console.log("success");
         }
         catch(error){
-            console.log("failure!");
+            console.log(error);
             res.sendFile(__dirname + "/failure.html");
         }
     }
